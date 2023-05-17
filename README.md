@@ -44,7 +44,7 @@ npm install firebase
 npm run dev
 ```
 
-#### Create **.env.local** using vite env variables
+#### Create **.env.local** using vite env variables for firebase
 
 ```
 VITE_APIKEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
