@@ -1,18 +1,12 @@
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {updateProfile} from "@firebase/auth";
 import {auth} from "../../config/firebase";
-import {useForm} from "react-hook-form";
 import {uesAuthContext} from "../../context/AuthContext";
+import {useForm} from "react-hook-form";
 
 const Register = () => {
   const {createUser, logInUserWithGoogle} = uesAuthContext();
-  const {
-    register,
-    handleSubmit,
-    formState: {errors},
-    setError,
-    reset,
-  } = useForm();
+  const {register, handleSubmit, errors, setError, reset} = useForm();
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -30,38 +24,30 @@ const Register = () => {
         })
           .then(() => {
             // Profile updated!
+            // ...
             navigate(from, {replace: true});
             reset();
           })
           .catch((error) => {
-            return setError("firebase-profile", {
-              type: "manual",
-              message: error.message,
-            });
+            setError(error.message);
+            console.log(errors);
           });
       })
       .catch((error) => {
-        return setError("firebase-create-account", {
-          type: "manual",
-          message: error.message,
-        });
+        setError(error.message);
+        console.log(errors);
       });
   };
 
-  // google authentication handle
+  //  google authentication handle
   const handleLoginWithGoogle = () => {
     logInUserWithGoogle()
       .then(() => {
         setError("");
         navigate("/");
       })
-      .catch((error) => setError("logInUser", error.message));
+      .catch((error) => setError(error.message));
   };
-
-  // show error message component
-  const ShowError = ({msg}) => (
-    <>{errors && <p className="mb-4 text-red-600">{errors[msg]?.message}</p>}</>
-  );
 
   return (
     <section className="flex items-center justify-center h-screen">
@@ -95,12 +81,11 @@ const Register = () => {
             </label>
             <input
               type="text"
-              {...register("name", {required: "Name is required"})}
+              {...register("name")}
               id="name"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-600"
               placeholder="Enter your name"
             />
-            <ShowError msg="name" />
           </div>
           <div className="mb-6">
             <label
@@ -110,17 +95,10 @@ const Register = () => {
             </label>
             <input
               type="email"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^\S+@\S+$/i,
-                  message: "Invalid email address",
-                },
-              })}
+              {...register("email")}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-600"
               placeholder="Enter your email"
             />
-            <ShowError msg="email" />
           </div>
           <div className="mb-6">
             <label
@@ -130,22 +108,10 @@ const Register = () => {
             </label>
             <input
               type="password"
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters long",
-                },
-                pattern: {
-                  value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
-                  message:
-                    "Password must contain at least one letter and one number",
-                },
-              })}
+              {...register("password")}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-600"
               placeholder="********"
             />
-            <ShowError msg="password" />
           </div>
           <div className="mb-6">
             <label
@@ -155,21 +121,12 @@ const Register = () => {
             </label>
             <input
               type="text"
-              {...register("photo_url", {
-                required: "Photo URL is required",
-                pattern: {
-                  value: /^(ftp|http|https):\/\/[^ "]+$/,
-                  message: "Invalid photo URL format",
-                },
-              })}
+              {...register("photo_url")}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-600"
               placeholder="Enter your photo URL"
             />
-            <ShowError msg="photo_url" />
           </div>
-          <ShowError msg="firebase-create-account" />
-          <ShowError msg="firebase-profile" />
-
+          {errors && <p className="mb-4 text-red-600">{errors}</p>}
           <button type="submit" className="btn btn-blue-600 w-full mb-4">
             Create an account
           </button>

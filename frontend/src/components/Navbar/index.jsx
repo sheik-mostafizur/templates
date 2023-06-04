@@ -1,8 +1,16 @@
 import {useState} from "react";
 import {NavLink} from "react-router-dom";
+import {uesAuthContext} from "../../context/AuthContext";
 
 const Navbar = () => {
+  const {user, logOutUser} = uesAuthContext();
   const [isMobileMenu, setIsMobileMenu] = useState(false);
+
+  const handleLoggedOut = () => {
+    logOutUser()
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenu(!isMobileMenu);
@@ -50,7 +58,7 @@ const Navbar = () => {
             isMobileMenu ? "" : "hidden"
           } w-full md:block md:w-auto`}
           id="navbar-default">
-          <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul className="font-medium flex md:items-center flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
               <NavLink
                 to="/"
@@ -89,13 +97,19 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink
-                to="/register"
-                className={({isActive}) =>
-                  isActive ? navItemActiveStyle : navItemStyle
-                }>
-                Register
-              </NavLink>
+              {user?.email ? (
+                <button onClick={handleLoggedOut} className="btn">
+                  Logout
+                </button>
+              ) : (
+                <NavLink
+                  to="/login"
+                  className={({isActive}) =>
+                    isActive ? navItemActiveStyle : navItemStyle
+                  }>
+                  Login
+                </NavLink>
+              )}
             </li>
           </ul>
         </div>
