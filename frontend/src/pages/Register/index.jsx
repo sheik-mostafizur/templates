@@ -63,6 +63,26 @@ const Register = () => {
     <>{errors && <p className="mb-4 text-red-600">{errors[msg]?.message}</p>}</>
   );
 
+  const Input = ({label, id, type = "text", placeholder, regOptions = {}}) => {
+    return (
+      <div className="mb-6">
+        <label
+          htmlFor={id}
+          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+          {label}
+        </label>
+        <input
+          type={type}
+          {...register(id, regOptions)}
+          id={id}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-600"
+          placeholder={placeholder}
+        />
+        <ShowError msg={id} />
+      </div>
+    );
+  };
+
   return (
     <section className="flex items-center justify-center h-screen">
       <div className="shadow border p-8 rounded-lg md:w-[450px] relative">
@@ -87,86 +107,57 @@ const Register = () => {
           </span>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-6">
-            <label
-              htmlFor="name"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Your name
-            </label>
-            <input
-              type="text"
-              {...register("name", {required: "Name is required"})}
-              id="name"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-600"
-              placeholder="Enter your name"
-            />
-            <ShowError msg="name" />
-          </div>
-          <div className="mb-6">
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Your email
-            </label>
-            <input
-              type="email"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^\S+@\S+$/i,
-                  message: "Invalid email address",
-                },
-              })}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-600"
-              placeholder="Enter your email"
-            />
-            <ShowError msg="email" />
-          </div>
-          <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Your password
-            </label>
-            <input
-              type="password"
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters long",
-                },
-                pattern: {
-                  value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
-                  message:
-                    "Password must contain at least one letter and one number",
-                },
-              })}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-600"
-              placeholder="********"
-            />
-            <ShowError msg="password" />
-          </div>
-          <div className="mb-6">
-            <label
-              htmlFor="photo"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Your photo URL
-            </label>
-            <input
-              type="text"
-              {...register("photo_url", {
-                required: "Photo URL is required",
-                pattern: {
-                  value: /^(ftp|http|https):\/\/[^ "]+$/,
-                  message: "Invalid photo URL format",
-                },
-              })}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-600"
-              placeholder="Enter your photo URL"
-            />
-            <ShowError msg="photo_url" />
-          </div>
+          <Input
+            label="Your Name"
+            id="name"
+            placeholder="Enter your name"
+            regOptions={{required: "Name is required"}}
+          />
+          <Input
+            label="Your email"
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            regOptions={{
+              required: "Email is required",
+              pattern: {
+                value: /^\S+@\S+$/i,
+                message: "Invalid email address",
+              },
+            }}
+          />
+          <Input
+            label="Your password"
+            id="password"
+            type="password"
+            placeholder="Enter your password"
+            regOptions={{
+              required: "Password is required",
+              minLength: {
+                value: 6,
+                message: "Password must be at least 6 characters long",
+              },
+              pattern: {
+                value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+                message:
+                  "Password must contain at least one letter and one number",
+              },
+            }}
+          />
+          <Input
+            label="Your photo URL"
+            type="url"
+            id="photo_url"
+            placeholder="Enter your photo URL"
+            regOptions={{
+              required: "Photo URL is required",
+              pattern: {
+                value: /^(ftp|http|https):\/\/[^ "]+$/,
+                message: "Invalid photo URL format",
+              },
+            }}
+          />
+          {/* Error message for firebase */}
           <ShowError msg="firebase-create-account" />
           <ShowError msg="firebase-profile" />
 
