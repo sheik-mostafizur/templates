@@ -2,6 +2,36 @@
 
 ## If you use this command please replace the template with (src/, .eslintrc.cjs, tailwind.config.js)
 
+### Or goto any template and just command it ```npm install```
+
+
+## Install frontend
+
+```
+npm create vite@latest frontend -- --template react
+cd frontend
+npm install
+npm install react-router-dom localforage match-sorter sort-by
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+npm install firebase
+npm install react-hook-form
+npm run dev
+```
+
+#### Create **.env.local** using vite env variables for firebase
+
+```
+VITE_APIKEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+VITE_AUTHDOMAIN=xxxxxxxxxxxxxxxxxxxxxxx
+VITE_PROJECTID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+VITE_STORAGEBUCKET=xxxxxxxxxxxxxxxxxxxxx
+VITE_MESSAGINGSENDERID=xxxxxxxxxxxxxxxxxxxxx
+VITE_APPID=1:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+VITE_MEASUREMENTID=xxxxxxxxxxxxxx
+```
+
+
 ## Install simple vite + react
 
 ```
@@ -43,32 +73,6 @@ npm install react-router-dom localforage match-sorter sort-by
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 npm install firebase
-npm run dev
-```
-
-#### Create **.env.local** using vite env variables for firebase
-
-```
-VITE_APIKEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-VITE_AUTHDOMAIN=xxxxxxxxxxxxxxxxxxxxxxx
-VITE_PROJECTID=xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-VITE_STORAGEBUCKET=xxxxxxxxxxxxxxxxxxxxx
-VITE_MESSAGINGSENDERID=xxxxxxxxxxxxxxxxxxxxx
-VITE_APPID=1:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-VITE_MEASUREMENTID=xxxxxxxxxxxxxx
-```
-
-## Install frontend
-
-```
-npm create vite@latest frontend -- --template react
-cd frontend
-npm install
-npm install react-router-dom localforage match-sorter sort-by
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
-npm install firebase
-npm install react-hook-form
 npm run dev
 ```
 
