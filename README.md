@@ -1,5 +1,7 @@
 # Templates for React (vite)
 
+## If you use this command please replace the template with (src/, .eslintrc.cjs, tailwind.config.js)
+
 ## Install simple vite + react
 
 ```
@@ -66,6 +68,7 @@ npm install react-router-dom localforage match-sorter sort-by
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 npm install firebase
+npm install react-hook-form
 npm run dev
 ```
 

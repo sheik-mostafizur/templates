@@ -81,20 +81,20 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/pricing"
-                className={({isActive}) =>
-                  isActive ? navItemActiveStyle : navItemStyle
-                }>
-                Pricing
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
                 to="/contact"
                 className={({isActive}) =>
                   isActive ? navItemActiveStyle : navItemStyle
                 }>
                 Contact
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/register"
+                className={({isActive}) =>
+                  isActive ? navItemActiveStyle : navItemStyle
+                }>
+                Register
               </NavLink>
             </li>
           </ul>
