@@ -121,7 +121,8 @@ const Register = () => {
             regOptions={{
               required: "Email is required",
               pattern: {
-                value: /^\S+@\S+$/i,
+                value:
+                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                 message: "Invalid email address",
               },
             }}
@@ -138,7 +139,8 @@ const Register = () => {
                 message: "Password must be at least 6 characters long",
               },
               pattern: {
-                value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+                value:
+                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/,
                 message:
                   "Password must contain at least one letter and one number",
               },
